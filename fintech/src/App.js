@@ -1,15 +1,18 @@
-import './App.css';
-import InputComponents from "./components/InputComponents";
-import ListComponent from './components/ListComponent';
-import StyledComponent from './components/StyledComponent';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import StyledComponent from "./components/StyledComponent";
+import ListComponent from "./components/ListComponent";
+import StateComponent from "./components/StateComponent";
 
 function App() {
   return (
-    <div className="App">
-      <InputComponents></InputComponents>
-      <ListComponent></ListComponent>
-      <StyledComponent></StyledComponent>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/style" element={<StyledComponent/>}></Route>
+        <Route path="/list" element={<ListComponent/>}></Route>
+        <Route path="/state" element={<StateComponent/>}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
