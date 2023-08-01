@@ -17,5 +17,5 @@ const ListComponent = () => {
     )
 }
 
-export default ListComponent
+export default ListComponent;
 // 자동 완성 : rafce, useStateSnippet
