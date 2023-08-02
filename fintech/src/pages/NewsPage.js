@@ -8,6 +8,15 @@ const NewsPage = () => {
     const [searchInput, setSearchInput] = useState("검색어");
     const [newsList, setNewsList] = useState([]);
 
+    const getMonthAgo = () => {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = ("0" + (date.getMonth())).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+    
+        return year + "-" + month + "-" + day;        
+    };
+
     const handleChange = (event) => {
         const { value } = event.target;
         setSearchInput(value);
@@ -16,7 +25,10 @@ const NewsPage = () => {
     const handleClick = () => {
         console.log(searchInput);
 
-        axios.get(`https://newsapi.org/v2/everything?q=${searchInput}&from=2023-07-01&sortBy=publishedAt&apiKey=8c46ef73473840f3864537c01252b0d5`)
+        const monthago = getMonthAgo();
+        console.log(monthago);
+
+        axios.get(`https://newsapi.org/v2/everything?q=${searchInput}&from=${monthago}&sortBy=publishedAt&apiKey=8c46ef73473840f3864537c01252b0d5`)
         .then((response) => {
             console.log(response.data);
             setNewsList(response.data.articles);
