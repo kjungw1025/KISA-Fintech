@@ -17,7 +17,7 @@ const CardTitle = styled.div`
   margin-bottom: 10px;
 `;
 
-const FintechUseNo = styled.div`
+const FintechUseNum = styled.div`
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 20px;
@@ -60,21 +60,21 @@ const ButtonBlock = styled.div`
   margin-top: 20px;
 `;
 
-const MainAccountCard = ({ bankName, fintechUseNo }) => {
+const MainAccountCard = ({ bankName, fintechUseNum }) => {
   const handleQrButton = () => {
     console.log("QR 버튼 클릭");
-    window.location.href = `/qrcode?fintechUseNo=${fintechUseNo}`;
+    window.location.href = `/qrcode?fintechUseNum=${fintechUseNum}`;
   };
 
   const handleBalanceButton = () => {
     console.log("잔액조회 버튼 클릭");
-    window.location.href = `/balance?fintechUseNo=${fintechUseNo}`;
+    window.location.href = `/balance?fintechUseNum=${fintechUseNum}`;
   };
 
   return (
     <CardBlock>
       <CardTitle>{bankName}</CardTitle>
-      <FintechUseNo>{fintechUseNo}</FintechUseNo>
+      <FintechUseNum>{fintechUseNum}</FintechUseNum>
       <ButtonBlock>
         <QrButton onClick={handleQrButton}>QR 코드</QrButton>
         <BalanceButton onClick={handleBalanceButton}>잔액 조회</BalanceButton>

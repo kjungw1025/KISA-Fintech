@@ -39,13 +39,13 @@ const MainPage = () => {
 
   return (
     <div>
+      <AppHeader title={"계좌 목록"}/>
       {accountList.map((account) => {
         return (
           <>
-            <AppHeader title={"메인"} />
             <MainAccountCard
               bankName={account.bank_name}
-              fintechUseNo={account.fintech_use_num}
+              fintechUseNum={account.fintech_use_num}
             ></MainAccountCard>
           </>
         );
