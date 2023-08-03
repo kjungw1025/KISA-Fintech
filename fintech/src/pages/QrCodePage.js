@@ -21,8 +21,8 @@ const QrCodePage = () => {
             <AppHeader title="QR 코드 생성"></AppHeader>
             <QRBlock>
                 <QRCodeSVG value={fintechUseNum} size={256} />
+                <p>{fintechUseNum}</p>
             </QRBlock>
-            <p>{fintechUseNum}</p>
         </div>
     );
 };
