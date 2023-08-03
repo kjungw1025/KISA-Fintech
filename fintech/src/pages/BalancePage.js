@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppHeader from '../components/common/AppHeader';
+import BalanceCard from "../components/common/BalanceCard";
+import TransactionList from "../components/common/TransactionList.js";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import axios from 'axios';
@@ -7,7 +9,8 @@ import axios from 'axios';
 const BalancePage = () => {
     let accessToken = "";
     let userSeqNo = "";
-    const [balance, setBalance] = useState("아직없음");
+    const [balance, setBalance] = useState("0");
+    const [transactionList, setTransactionList] = useState([]);
 
     const queryParams = useLocation().search;
     const fintechUseNum = queryString.parse(queryParams).fintechUseNum;
@@ -49,6 +52,7 @@ const BalancePage = () => {
       accessToken = localStorage.getItem("accessToken");
       userSeqNo = localStorage.getItem("userSeqNo");
       getBalance();
+      getTransactionList();
     }, []);
 
     const getBalance = () => {
@@ -56,28 +60,60 @@ const BalancePage = () => {
             bank_tran_id: genTransId(),
             fintech_use_num: fintechUseNum,
             tran_dtime: generateTime(),
-            };
-        
-            const option = {
+        };
+    
+        const option = {
+        method: "GET",
+        url: "v2.0/account/balance/fin_num",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            Authorization: `Bearer ${accessToken}`,
+        },
+        params: sendObj,
+        };
+    
+        axios(option).then(({ data }) => {
+            setBalance(data);
+        });       
+    };
+
+    const getTransactionList = () => {
+        const requestBodyForTransactionList = {
+            bank_tran_id: genTransId(),
+            fintech_use_num: fintechUseNum,
+            inquiry_type: "A",
+            inquiry_base: "D",
+            from_date: "20230101",
+            to_date: "20230803",
+            sort_order: "D",
+            tran_dtime: "20230803103900",
+        };
+
+        const option = {
             method: "GET",
-            url: "v2.0/account/balance/fin_num",
+            url: "v2.0/account/transaction_list/fin_num",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 Authorization: `Bearer ${accessToken}`,
             },
-            params: sendObj,
-            };
-        
-            axios(option).then(({ data }) => {
+            params: requestBodyForTransactionList,
+        };
+
+        axios(option).then(({ data }) => {
             console.log(data);
-            setBalance(data);
-            });       
-    };
+            setTransactionList(data.res_list);
+        });
+    };  
 
     return (
         <div>
             <AppHeader title="잔액조회"></AppHeader>
-            {balance}
+            <BalanceCard
+                bankName={balance.bank_name}
+                fintechNo={balance.fintech_use_num}
+                balance={balance.balance_amt}
+            ></BalanceCard>
+            <TransactionList transactionList={transactionList}></TransactionList>
         </div>
     )
 }
