@@ -151,7 +151,7 @@ const ModalCard = ({ bankName, fintechUseNum, tofintechno }) => {
             <CardTitle>{bankName}</CardTitle>
             <FintechUseNum>{fintechUseNum}</FintechUseNum>
             <p>{tofintechno}로 돈을 보냅니다.</p>
-            <input onChange={handleChange}></input>
+            <input onChange={handleChange} placeholder="금액을 입력해주세요."></input>
             <WithDrawButton onClick={handlePayButtonClick}>결제하기</WithDrawButton>
         </ModalCardBlock>
     );
