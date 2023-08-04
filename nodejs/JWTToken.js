@@ -18,3 +18,15 @@ jwt.sign(
     res.json(token);
   }
 );
+
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJFbWFpbCI6InNreW1pbGwyMDAwIiwiaWF0IjoxNjkxMTE3MTQyLCJleHAiOjE2OTE5ODExNDIsImlzcyI6ImZpbnRlY2guYWRtaW4iLCJzdWIiOiJ1c2VyLmxvZ2luLmluZm8ifQ.65IOqbbrrHhgST6Aak58npYmg9rxELVfFV1_e-e4nrc";
+jwt.verify(token, tokenKey, function (err, decoded) {
+    // err
+    // decoded undefined
+    if (err) {
+      console.error(err);
+      throw err;
+    } else {
+      console.log(decoded);
+    }
+});
