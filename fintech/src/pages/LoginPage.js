@@ -17,7 +17,7 @@ const LoginPage = () => {
             url: "/login",
             method: "POST",
             data: {
-                id: id,
+                email: id,
                 password: password,
             },
         };
